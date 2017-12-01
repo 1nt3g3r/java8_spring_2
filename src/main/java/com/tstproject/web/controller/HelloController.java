@@ -1,12 +1,20 @@
 package com.tstproject.web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
+
 @Controller
 public class HelloController {
+	@Autowired
+	private HttpSession session;
 
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
@@ -22,8 +30,12 @@ public class HelloController {
 	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
 
+		SecurityContextImpl securityContext;
+		securityContext = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
+
 		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security Hello World");
+		model.addObject("title", "ROLES: " + securityContext.getAuthentication().getAuthorities());
+
 		model.addObject("message", "This is protected page - Admin Page!");
 		model.setViewName("admin");
 
