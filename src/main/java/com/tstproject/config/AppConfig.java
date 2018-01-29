@@ -10,7 +10,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({ "com.tstproject.web.*" })
+@ComponentScan({ "com.tstproject.*" })
 @Import({ SecurityConfig.class })
 public class AppConfig {
 
@@ -25,5 +25,5 @@ public class AppConfig {
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
 	}
-	
+
 }

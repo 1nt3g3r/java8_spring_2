@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
 
 @Controller
 public class HelloController {
@@ -42,19 +40,15 @@ public class HelloController {
 		return model;
 
 	}
-	
-	@RequestMapping(value = "/dba**", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/user**", method = RequestMethod.GET)
 	public ModelAndView dbaPage() {
 
 		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security Hello World");
-		model.addObject("message", "This is protected page - Database Page!");
-		model.setViewName("admin");
+		model.addObject("title", "It's user page");
+		model.addObject("message", "This page is for user!");
+		model.setViewName("user");
 
 		return model;
-
 	}
-	
-	
-
 }

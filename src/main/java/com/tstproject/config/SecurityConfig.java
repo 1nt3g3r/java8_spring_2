@@ -12,33 +12,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-
-		auth.inMemoryAuthentication().withUser("user").password("123456").roles("USER");
-		auth.inMemoryAuthentication().withUser("admin").password("123456").roles("ADMIN");
-		auth.inMemoryAuthentication().withUser("dba").password("123456").roles("DBA");
-		auth.inMemoryAuthentication().withUser("test").password("test").roles("ADMIN", "DBA");
+		auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
+		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-			.antMatchers("/dba/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')")
+			.antMatchers("/user/**").access("hasRole('ROLE_USER') OR hasRole('ROLE_ADMIN')")
+            .antMatchers("/cat/**").access("hasRole('ROLE_ADMIN')")
 			.and().formLogin();
-		
+
 	}
-//
-//	@Bean
-//	public DaoAuthenticationProvider authenticationProvider() {
-//		DaoAuthenticationProvider authProvider
-//				= new DaoAuthenticationProvider();
-//		authProvider.setUserDetailsService(dbUsersAccessService);
-//		authProvider.setPasswordEncoder(encoder());
-//		return authProvider;
-//	}
-//
-//	@Bean
-//	public PasswordEncoder encoder() {
-//		return new BCryptPasswordEncoder(11);
-//	}
 }
