@@ -19,7 +19,6 @@ public class CatController {
     @RequestMapping("/cat/catsWithSpaces")
     public @ResponseBody List<Cat> catsWithSpaces() {
         return catRepository.getCatsWithSpaces();
-
     }
 
     @RequestMapping(value = "/cat/listAll", method = RequestMethod.GET)
@@ -35,5 +34,10 @@ public class CatController {
         catRepository.save(cat);
 
         return catName + " was added!";
+    }
+
+    @RequestMapping(value = "/cat/className", method = RequestMethod.GET)
+    public @ResponseBody String catRepositoryClassName() {
+        return catRepository.getClass().getCanonicalName();
     }
 }
